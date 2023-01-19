@@ -1,0 +1,26 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: IntegrationServer
+metadata:
+  name: create-customer-details-rest
+spec:
+  designerFlowsOperationMode: disabled
+  license:
+    accept: true
+    license: L-APEH-CJUCNR
+    use: CloudPakForIntegrationNonProduction
+  replicas: 1
+  router:
+    timeout: 120s
+  service:
+    endpointType: http
+  useCommonServices: true
+  version: 12.0.7.0-r1
+  adminServerSecure: true
+  pod:
+    containers:
+      runtime:
+        image: default-route-openshift-image-registry.apps.labo3.poc.com/ci/create-customer-details-rest:0e24177c1f855d929b5ab0d1f8bbfc727663cd48
+        imagePullPolicy: Always
+  configurations:
+    - create-customer-serverconf.yaml
+    - create-customer-policy
