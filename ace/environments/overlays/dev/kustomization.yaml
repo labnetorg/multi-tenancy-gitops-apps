@@ -1,6 +1,6 @@
 resources:
  - ../../base
-#  - hooks/post-sync.yaml
+ - hooks/post-sync.yaml
 #  - dashboard/ace-dashboard.yaml
 #  - ibm-entitlement-key/ibm-entitled-key-secret.yaml
 # patchesStrategicMerge:
