@@ -9,14 +9,6 @@ spec:
     type: string
   - name: is-source-directory
     type: string
-  - name: key-certs-secret-name
-    type: string
-  - name: client-key
-    type: string
-  - name: client-cert
-    type: string
-  - name: ca-cert
-    type: string
   - name: endpoint-path
     type: string
   - name: source-env
@@ -72,17 +64,6 @@ spec:
       desired_replicas=$(oc -n $(params.source-env) get deploy -l app.kubernetes.io/instance=$RELEASE_NAME -o jsonpath='{$.items[0].spec.replicas}')
       wait_until "desired_replicas_same_as_actual_replicas $desired_replicas" "Numner of pods does not match desired replicas"
   - name: resolve-route
-    env:
-    - name: BASIC_AUTH_USERNAME
-      valueFrom:
-        secretKeyRef:
-          key: username
-          name: basic-auth-rest
-    - name: BASIC_AUTH_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          key: password
-          name: basic-auth-rest
     image: quay.io/openshift/origin-cli:latest
     script: |
       #!/bin/bash
@@ -119,7 +100,7 @@ spec:
           https://$url 
       }
 
-      route=$(oc -n $(params.source-env) get routes -l app.kubernetes.io/instance=$(params.release-name) -o jsonpath='{.items[?(@.spec.port.targetPort=="https")].spec.host}')
+      route=$(oc -n $(params.source-env) get routes -l app.kubernetes.io/instance=$(params.release-name) -o jsonpath='{.items[?(@.spec.port.targetPort=="http")].spec.host}')
       echo -n $route > /shared/route.txt
 
       wait_until "url_is_ready $route/$(params.endpoint-path)" "Route is not set up"
@@ -130,17 +111,6 @@ spec:
       name: certs
       readOnly: true
   - name: run-test
-    env:
-    - name: BASIC_AUTH_USERNAME
-      valueFrom:
-        secretKeyRef:
-          key: username
-          name: basic-auth-rest
-    - name: BASIC_AUTH_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          key: password
-          name: basic-auth-rest
     image: quay.io/hollisc/newman
     imagePullPolicy: Always
     script: |
@@ -150,17 +120,11 @@ spec:
 
       route=$(cat /shared/route.txt)
 
-      #route=create-customer-details-rest-https-dev.ace-prod-ref-6ccd7f378ae819553d37d5f2ee142bd6-0000.us-east.containers.appdomain.cloud
-
       echo $route
 
       test_file=$(workspaces.workspace.path)/$(params.is-source-directory)/test/newman/test.json
       if [[ -e $test_file ]]; then
         newman run -k \
-          --ssl-client-key /client-certs/$(params.client-key) \
-          --ssl-client-cert /client-certs/$(params.client-cert) \
-          --env-var username=$BASIC_AUTH_USERNAME \
-          --env-var password=$BASIC_AUTH_PASSWORD \
           --env-var host=$route \
           $test_file
 
@@ -168,14 +132,8 @@ spec:
     volumeMounts:
     - mountPath: /shared
       name: shared-volume
-    - mountPath: /client-certs
-      name: certs
-      readOnly: true
   volumes:
   - emptyDir: {}
     name: shared-volume
-  - name: certs
-    secret:
-      secretName: $(params.key-certs-secret-name)
   workspaces:
   - name: workspace
