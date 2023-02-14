@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: gitops-repo-ace
 data:
-  branch: 
+  branch: promote
   host: github.com
   org: labnetorg
   owner: cloud-native-toolkit-demos
