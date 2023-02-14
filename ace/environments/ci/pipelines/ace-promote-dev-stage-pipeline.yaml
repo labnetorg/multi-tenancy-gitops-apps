@@ -4,8 +4,9 @@ metadata:
   name: ace-promote-dev-stage
 spec:
   params:
-  - default: https://github.com/labnetorg/create-customer.git
+  - default: git@github.com:labnetorg/create-customer.git
     name: is-source-repo-url
+    description: "SSH url of ACE source repository, ex: git@github.com:ace-prod-ref/create-customer.git"
     type: string
   - default: is-source
     name: is-source-directory
@@ -24,18 +25,20 @@ spec:
 
   - name: clone-is-source
     params:
-    - name: url
-      value: $(params.is-source-repo-url)
-    - name: subdirectory
-      value: $(params.is-source-directory)
-    - name: deleteExisting
-      value: "true"
+      - name: url
+        value: $(params.is-source-repo-url)
+      - name: subdirectory
+        value: $(params.is-source-directory)
+      - name: deleteExisting
+        value: "true"
     taskRef:
-      kind: Task
+      kind: ClusterTask
       name: git-clone
     workspaces:
-    - name: output
-      workspace: shared-workspace
+      - name: output
+        workspace: shared-workspace
+      - name: ssh-directory
+        workspace: ace-source-repo-secret
 
   - name: resolve-props
     params:
@@ -83,5 +86,7 @@ spec:
     taskRef:
       kind: Task
       name: ibm-gitops-for-ace
+      
   workspaces:
   - name: shared-workspace
+  - name: ace-source-repo-secret
