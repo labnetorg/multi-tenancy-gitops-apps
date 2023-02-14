@@ -2,7 +2,7 @@ resources:
 - buildconfig/sh-tools.yaml
 - certificates/prod-ref-ss-ca.yaml
 - certificates/prod-ref-devops.yaml
-# - configmaps/gitops-repo-configmap.yaml
+- configmaps/gitops-repo-configmap.yaml
 # - eventlisteners/ace-bar-event-listener.yaml
 - eventlisteners/ace-integration-server.yaml
 - imagestreams/sh-tools.yaml
@@ -23,7 +23,7 @@ resources:
 # - roles/custom-pipeline-clusterrolebinding.yaml
 - routes/el-ace-integration-server.yaml
 # - secrets/basic-auth-rest-secret.yaml
-# - secrets/git-credentials-secret.yaml
+- secrets/git-credentials-secret.yaml
 # - secrets/ibm-ace-server-jks-secret.yaml
 # - secrets/ibm-ca-jks-secret.yaml
 # - secrets/ibm-client-jks-secret.yaml

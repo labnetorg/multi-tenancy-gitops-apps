@@ -3,11 +3,11 @@ kind: ConfigMap
 metadata:
   name: gitops-repo-ace
 data:
-  branch: ocp47-2021-2
+  branch: 
   host: github.com
-  org: cloud-native-toolkit-demos
+  org: labnetorg
   owner: cloud-native-toolkit-demos
   parentdir: .
   protocol: https
   repo: multi-tenancy-gitops-apps
-  url: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
+  url: https://github.com/labnetorg/multi-tenancy-gitops-apps.git
