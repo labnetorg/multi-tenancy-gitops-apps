@@ -4,27 +4,11 @@ metadata:
   name: ace-promote-dev-stage
 spec:
   params:
-  - default: https://github.com/cloud-native-toolkit-demos/ace-customer-details.git
+  - default: https://github.com/labnetorg/create-customer.git
     name: is-source-repo-url
     type: string
   - default: is-source
     name: is-source-directory
-    type: string
-  - default: '""'
-    name: is-source-repo-private-key
-    type: string
-
-  - default: ibm-client-key-certs
-    name: key-certs-secret-name
-    type: string
-  - default: ibm-client.key
-    name: client-key
-    type: string
-  - default: ibm-client.crt
-    name: client-cert
-    type: string
-  - default: ibm-ca.crt
-    name: ca-cert
     type: string
   - description: Points to the dev/staging env
     name: source-env
@@ -46,8 +30,6 @@ spec:
       value: $(params.is-source-directory)
     - name: deleteExisting
       value: "true"
-    - name: sshPrivateKey
-      value: $(params.is-source-repo-private-key)
     taskRef:
       kind: Task
       name: git-clone
@@ -77,15 +59,7 @@ spec:
     - name: release-name
       value: create-customer-details-rest
     - name: endpoint-path
-      value: v1/createcustomer
-    - name: key-certs-secret-name
-      value: $(params.key-certs-secret-name)
-    - name: client-key
-      value: $(params.client-key)
-    - name: client-cert
-      value: $(params.client-cert)
-    - name: ca-cert
-      value: $(params.ca-cert)
+      value: createcustomerrestcallingws/v1/createcustomer
     runAfter:
     - resolve-props
     taskRef:

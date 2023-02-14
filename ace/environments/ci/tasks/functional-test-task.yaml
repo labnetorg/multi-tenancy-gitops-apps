@@ -63,6 +63,7 @@ spec:
 
       desired_replicas=$(oc -n $(params.source-env) get deploy -l app.kubernetes.io/instance=$RELEASE_NAME -o jsonpath='{$.items[0].spec.replicas}')
       wait_until "desired_replicas_same_as_actual_replicas $desired_replicas" "Numner of pods does not match desired replicas"
+
   - name: resolve-route
     image: quay.io/openshift/origin-cli:latest
     script: |
@@ -92,24 +93,18 @@ spec:
 
       url_is_ready() {
         url=$1
-        curl -s -k \
-          -u $BASIC_AUTH_USERNAME:$BASIC_AUTH_PASSWORD \
-          --request OPTIONS \
-          --cert /client-certs/$(params.client-cert) \
-          --key /client-certs/$(params.client-key) \
-          https://$url 
+        urlstatus=$(curl -o /dev/null -X POST --silent --head --write-out '%{http_code}' "$url" )
+        if [[ $urlstatus != 400 ]]; then exit 1; fi
       }
 
       route=$(oc -n $(params.source-env) get routes -l app.kubernetes.io/instance=$(params.release-name) -o jsonpath='{.items[?(@.spec.port.targetPort=="http")].spec.host}')
       echo -n $route > /shared/route.txt
 
-      wait_until "url_is_ready $route/$(params.endpoint-path)" "Route is not set up"
+      wait_until "url_is_ready http://$route/$(params.endpoint-path)" "Route is not set up"
+
     volumeMounts:
     - mountPath: /shared
       name: shared-volume
-    - mountPath: /client-certs
-      name: certs
-      readOnly: true
   - name: run-test
     image: quay.io/hollisc/newman
     imagePullPolicy: Always
