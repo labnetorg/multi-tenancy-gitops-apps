@@ -29,7 +29,7 @@ spec:
           - --workspace
           - name=shared-workspace,claimName=ace-test-pvc
           - --workspace
-          - name=ace-source-repo-secret,secretName=create-customer-at-github
+          - name=ace-source-repo-secret,secret=create-customer-at-github
           - --serviceaccount
           - pipeline
       restartPolicy: Never
