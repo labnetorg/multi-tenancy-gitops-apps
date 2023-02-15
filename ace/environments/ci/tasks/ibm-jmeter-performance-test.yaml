@@ -22,13 +22,13 @@ spec:
       default: "5"
   steps:
     - name: jmeter-it
-      env:
-      - name: KEYSTORE_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            key: keyStorePassword
-            name: ibm-client.jks
-            optional: true
+      # env:
+      # - name: KEYSTORE_PASSWORD
+      #   valueFrom:
+      #     secretKeyRef:
+      #       key: keyStorePassword
+      #       name: ibm-client.jks
+      #       optional: true
       image: quay.io/hollisc/jmeter-11
       script: |
         #!/usr/bin/env bash
@@ -42,9 +42,9 @@ spec:
 
         ${JMETER_BIN}/jmeter.sh \
           -Jserver.rmi.ssl.disable=true \
-          -Djavax.net.ssl.keyStoreType=jks \
-          -Djavax.net.ssl.keyStore=/client-certs/ibm-client.jks \
-          -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD} \
+          # -Djavax.net.ssl.keyStoreType=jks \
+          # -Djavax.net.ssl.keyStore=/client-certs/ibm-client.jks \
+          # -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD} \
           -n -t $(workspaces.workspace.path)/$(params.is-source-directory)/$(params.test-plan) \
           -Jjmeter_users=$jmeter_users \
           -l /tmp/report.jtl
@@ -67,17 +67,17 @@ spec:
       volumeMounts:
       - mountPath: /shared
         name: shared-volume
-      - mountPath: /client-certs
-        name: certs
-        readOnly: true
+      # - mountPath: /client-certs
+      #   name: certs
+      #   readOnly: true
   volumes:
   - emptyDir: {}
     name: shared-volume
-  - name: certs
-    secret:
-      items:
-        - key: keyStore
-          path: ibm-client.jks
-      secretName: $(params.key-certs-secret-name)
+  # - name: certs
+  #   secret:
+  #     items:
+  #       - key: keyStore
+  #         path: ibm-client.jks
+  #     secretName: $(params.key-certs-secret-name)
   workspaces:
   - name: workspace

@@ -21,7 +21,7 @@ spec:
           - start
           - ace-promote-stage-prod
           - --param
-          - is-source-repo-url=https://github.com/cloud-native-toolkit-demos/ace-customer-details.git
+          - is-source-repo-url=git@github.com:labnetorg/create-customer.git
           - --param
           - is-source-repo-private-key=""
           - --param
@@ -32,6 +32,8 @@ spec:
           - jmeter-users=250
           - --workspace
           - name=shared-workspace,claimName=ace-test-pvc
+          - --workspace
+          - name=ace-source-repo-secret,secret=create-customer-at-github
           - --serviceaccount
           - pipeline
       restartPolicy: Never
