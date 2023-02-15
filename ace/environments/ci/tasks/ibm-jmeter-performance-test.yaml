@@ -40,11 +40,17 @@ spec:
 
         source /tmp/jmeter.env
 
+        # ${JMETER_BIN}/jmeter.sh \
+        #   -Jserver.rmi.ssl.disable=true \
+        #   -Djavax.net.ssl.keyStoreType=jks \
+        #   -Djavax.net.ssl.keyStore=/client-certs/ibm-client.jks \
+        #   -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD} \
+        #   -n -t $(workspaces.workspace.path)/$(params.is-source-directory)/$(params.test-plan) \
+        #   -Jjmeter_users=$jmeter_users \
+        #   -l /tmp/report.jtl
+
         ${JMETER_BIN}/jmeter.sh \
           -Jserver.rmi.ssl.disable=true \
-          # -Djavax.net.ssl.keyStoreType=jks \
-          # -Djavax.net.ssl.keyStore=/client-certs/ibm-client.jks \
-          # -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD} \
           -n -t $(workspaces.workspace.path)/$(params.is-source-directory)/$(params.test-plan) \
           -Jjmeter_users=$jmeter_users \
           -l /tmp/report.jtl
