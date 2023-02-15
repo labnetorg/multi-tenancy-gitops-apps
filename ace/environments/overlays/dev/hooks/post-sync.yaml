@@ -21,9 +21,7 @@ spec:
           - start
           - ace-promote-dev-stage
           - --param
-          - is-source-repo-url=https://github.com/labnetorg/create-customer.git
-          - --param
-          - is-source-repo-private-key=""
+          - is-source-repo-url=git@github.com:labnetorg/create-customer.git
           - --param
           - source-env=dev
           - --param
