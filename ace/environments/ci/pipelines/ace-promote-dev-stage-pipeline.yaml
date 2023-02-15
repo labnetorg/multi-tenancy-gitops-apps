@@ -20,7 +20,6 @@ spec:
     type: string
     default: staging
 
-
   tasks:
 
   - name: clone-is-source
@@ -77,6 +76,8 @@ spec:
     params:
     - name: source-env
       value: $(params.source-env)
+    - name: source-yaml
+      value: "integrationServer/IntegrationServer.yaml"
     - name: destination-env
       value: $(params.destination-env)
     - name: git-pr
