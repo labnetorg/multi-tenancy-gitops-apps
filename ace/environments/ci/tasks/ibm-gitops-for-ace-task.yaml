@@ -142,6 +142,8 @@ spec:
           DEST_YAML_FILE="${SUBDIR}/$(params.destination-env)/$(params.destination-yaml)"
           if [[ -n "$(params.destination-image)" ]]; then
             DEST_IMAGE_URL="$(params.destination-image)"
+          elif [[ $(params.source-env)=="dev" ]]; then
+            SOURCE_YAML_FILE="ace/environments/base/$(params.source-yaml)"
           else
             SOURCE_YAML_FILE="${SUBDIR}/$(params.source-env)/$(params.source-yaml)"
           fi
