@@ -77,7 +77,7 @@ spec:
     - name: source-env
       value: $(params.source-env)
     - name: source-yaml
-      value: "integrationServer/IntegrationServer.yaml"
+      value: "integrationServer/create-customer-details-rest.yaml"
     - name: destination-env
       value: $(params.destination-env)
     - name: git-pr
