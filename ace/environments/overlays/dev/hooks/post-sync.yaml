@@ -28,6 +28,8 @@ spec:
           - destination-env=staging
           - --workspace
           - name=shared-workspace,claimName=ace-test-pvc
+          - --workspace
+          - name=ace-source-repo-secret,secretName=create-customer-at-github
           - --serviceaccount
           - pipeline
       restartPolicy: Never
