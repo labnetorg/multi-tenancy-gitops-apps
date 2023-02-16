@@ -1,0 +1,10 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: ace-integration-server-gitlab
+spec:
+  params:
+  - name: source-repo
+    value: $(body.repository.name)
+  - name: path_with_namespace
+    value: $(body.project.path_with_namespace)
