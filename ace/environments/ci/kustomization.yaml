@@ -5,6 +5,7 @@ resources:
 - configmaps/gitops-repo-configmap.yaml
 # - eventlisteners/ace-bar-event-listener.yaml
 - eventlisteners/ace-integration-server.yaml
+- eventlisteners/ace-integration-server-gitlab.yaml
 - imagestreams/sh-tools.yaml
 - issuers/prod-ref-ss.yaml
 - issuers/prod-ref-ss-ca.yaml
@@ -33,6 +34,7 @@ resources:
 - secrets/gitops-repo-pk-secret-ace-infra-at-github.yaml
 - secrets/gitops-repo-pk-secret-multi-tenancy-gitops-apps-at-github.yaml
 - secrets/gitops-repo-pk-secret-create-customer-at-github.yaml
+- secrets/gitops-repo-pk-secret-create-customer-at-gitlab.yaml
 - secrets/ibm-entitlement-key-secret.yaml
 - secrets/gitops-webhook-token.yaml
 # - serviceaccount/pipeline-serviceaccount.yaml
@@ -60,3 +62,5 @@ resources:
 - tasks/resolve-props.yaml
 - triggerbindings/ace-integration-server.yaml
 - triggertemplates/ace-integration-server.yaml
+- triggerbindings/ace-integration-server-gitlab.yaml
+- triggertemplates/ace-integration-server-gitlab.yaml
