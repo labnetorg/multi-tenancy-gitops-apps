@@ -19,7 +19,7 @@ spec:
   pod:
     containers:
       runtime:
-        image: default-route-openshift-image-registry.apps.labo3.poc.com/ci/create-customer-details-rest:fd2dad48052fd06cb72e6aaffc83e6690b568fde
+        image: default-route-openshift-image-registry.apps.labo3.poc.com/ci/create-customer-details-rest:ec35e54399d59617af2b31fa918aa6b5cc4eb257
         imagePullPolicy: Always
   configurations:
     - create-customer-serverconf.yaml
