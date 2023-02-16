@@ -7,4 +7,4 @@ spec:
   pod:
     containers:
       runtime:
-        image: default-route-openshift-image-registry.apps.labo3.poc.com/ci/create-customer-details-rest:fe86f697ce71b2712871ccdc973ac70e6fbb107d
+        image: default-route-openshift-image-registry.apps.labo3.poc.com/ci/create-customer-details-rest:bb40193ba2cc938da83804760df2812c1bc6f543
